@@ -1,0 +1,13 @@
+[Unit]
+Description=Apollon Converter
+
+[Service]
+Type=simple
+User=apollon_converter
+ExecStart=/usr/bin/node /opt/apollon_converter/build/bundle.js
+Restart=always
+Environment=NODE_ENV=production
+WorkingDirectory=/opt/apollon_converter/build/
+
+[Install]
+WantedBy=multi-user.target
