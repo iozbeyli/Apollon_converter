@@ -1,4 +1,4 @@
-# Apollon Standalone
+# Apollon Converter
 
 Converter server for the [Apollon Editor](https://github.com/ls1intum/Apollon)
 
