@@ -8,9 +8,8 @@ import { UMLModel } from '@ls1intum/apollon';
 
 const controllers = {
   convert: (req: express.Request, res: express.Response) => {
-    if (req.body && req.body.model && typeof req.body.model === 'string') {
-      const model = JSON.parse(req.body.model);
-      const { svg, clip } = convertToSvg(<UMLModel>(<unknown>model));
+    if (req.body && req.body.model) {
+      const { svg, clip } = convertToSvg(<UMLModel>(<unknown>req.body.model));
       const { width, height } = clip;
       pdfMake.vfs = pdfFonts.pdfMake.vfs;
       var doc = pdfMake.createPdf({
@@ -26,6 +25,8 @@ const controllers = {
 
       document.pipe(res);
       document.end();
+    } else {
+      res.status(400).send({ error: 'Model must be defined!' });
     }
   },
   status: (req: express.Request, res: express.Response) => {
