@@ -1,5 +1,5 @@
-import "jsdom-global/register";
-import { ApollonEditor, SVG, UMLModel } from "@ls1intum/apollon";
+import 'jsdom-global/register';
+import { ApollonEditor, SVG, UMLModel } from '@ls1intum/apollon';
 
 /**
  * Gets an uml model of apollon and returns svg of it
@@ -7,10 +7,9 @@ import { ApollonEditor, SVG, UMLModel } from "@ls1intum/apollon";
  * @param model
  * @returns an svg object with svg string and bounds
  */
-const convertToPdf = (model: UMLModel): SVG => {
+const convertToSvg = (model: UMLModel): SVG => {
   //@ts-ignore
-  document.body.innerHTML =
-    "<!doctype html><html><body><div></div></body></html>";
+  document.body.innerHTML = '<!doctype html><html><body><div></div></body></html>';
 
   //JSDOM does not support getBBox so we have to mock it here
   //@ts-ignore
@@ -22,7 +21,7 @@ const convertToPdf = (model: UMLModel): SVG => {
   });
 
   //@ts-ignore
-  const container = document.querySelector("div");
+  const container = document.querySelector('div');
 
   const editor = new ApollonEditor(container, {});
 
@@ -33,4 +32,4 @@ const convertToPdf = (model: UMLModel): SVG => {
   return svg;
 };
 
-export default convertToPdf;
+export default convertToSvg;
