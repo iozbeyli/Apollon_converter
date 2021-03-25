@@ -14,7 +14,7 @@ export const register = (app: express.Application) => {
   const router = express.Router();
   router.use(cors(options));
 
-  router.get('/pdf', (req, res) => controller.convert(req, res));
+  router.post('/pdf', (req, res) => controller.convert(req, res));
   router.get('/status', (req, res) => controller.status(req, res));
-  app.use('/api', router);
+  app.use('/', router);
 };

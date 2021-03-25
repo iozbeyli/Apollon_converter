@@ -9,7 +9,11 @@ import { UMLModel } from '@ls1intum/apollon';
 const controllers = {
   convert: (req: express.Request, res: express.Response) => {
     if (req.body && req.body.model) {
-      const { svg, clip } = convertToSvg(<UMLModel>(<unknown>req.body.model));
+      let model = req.body.model;
+      if (typeof model === 'string') {
+        model = JSON.parse(model);
+      }
+      const { svg, clip } = convertToSvg(<UMLModel>(<unknown>model));
       const { width, height } = clip;
       pdfMake.vfs = pdfFonts.pdfMake.vfs;
       var doc = pdfMake.createPdf({
@@ -22,7 +26,7 @@ const controllers = {
         pageMargins: 0,
       });
       const document = doc.getStream();
-
+      res.type('application/pdf');
       document.pipe(res);
       document.end();
     } else {
