@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { register } from './routes';
 
-const port = 8080;
+const port = 8081;
 
 export const app = express();
 
@@ -23,5 +23,5 @@ app.get('/*', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log('Apollon Standalone Server listening at http://localhost:%s', port);
+  console.log('Apollon Converter Server listening at http://localhost:%s', port);
 });
