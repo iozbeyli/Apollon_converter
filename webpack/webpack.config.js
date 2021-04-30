@@ -1,37 +1,39 @@
-var path = require("path");
-const CopyPlugin = require("copy-webpack-plugin");
+var path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: "./src/main/server.ts",
-  target: "node",
-  devtool: "inline-source-map",
+  entry: './src/main/server.ts',
+  target: 'node',
+  devtool: 'inline-source-map',
   node: {
     __dirname: true,
   },
   output: {
-    path: path.resolve(__dirname, "../build/"),
-    filename: "bundle.js",
+    path: path.resolve(__dirname, '../build/'),
+    filename: 'bundle.js',
   },
   resolve: {
-    extensions: [".ts", ".js"], //resolve all the modules other than index.ts
+    extensions: ['.ts', '.js'], //resolve all the modules other than index.ts
   },
   module: {
     rules: [
       {
-        use: "ts-loader",
+        use: 'ts-loader',
         test: /\.ts?$/,
       },
     ],
   },
   externals: {
-    canvas: "commonjs ./canvas/canvas",
+    canvas: 'commonjs ./canvas/canvas',
+    bufferutil: 'bufferutil',
+    'utf-8-validate': 'utf-8-validate',
   },
   plugins: [
     new CopyPlugin({
       patterns: [
         {
-          from: "node_modules/canvas/build/Release/",
-          to: "canvas",
+          from: 'node_modules/canvas/build/Release/',
+          to: 'canvas',
         },
       ],
     }),
