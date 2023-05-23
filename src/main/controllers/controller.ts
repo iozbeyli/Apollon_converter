@@ -1,22 +1,21 @@
-// @ts-ignore
 import pdfMake from 'pdfmake/build/pdfmake.min';
-// @ts-ignore
 import pdfFonts from 'pdfmake/build/vfs_fonts';
-import convertToSvg from '../services/convertToPdf';
 import express from 'express';
 import { UMLModel } from '@ls1intum/apollon';
+import { ConversionService } from '../services/convertToPdf';
 
 const controllers = {
-  convert: (req: express.Request, res: express.Response) => {
+  async convert (req: express.Request, res: express.Response) {
     if (req.body && req.body.model) {
       let model = req.body.model;
       if (typeof model === 'string') {
         model = JSON.parse(model);
       }
-      const { svg, clip } = convertToSvg(<UMLModel>(<unknown>model));
+      const service: ConversionService = new ConversionService();
+      const { svg, clip } = await service.convertToSvg((model as unknown) as UMLModel);
       const { width, height } = clip;
       pdfMake.vfs = pdfFonts.pdfMake.vfs;
-      var doc = pdfMake.createPdf({
+      const doc = pdfMake.createPdf({
         content: [
           {
             svg,

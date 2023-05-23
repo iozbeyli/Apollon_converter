@@ -19,7 +19,7 @@ register(app);
 // if nothing matches return html text
 // must be registered after other routes
 app.get('/*', (req, res) => {
-  res.send('<html><title>Apollon Converter</title><body>Apollon Converter is running</body></html>');
+  res.send('<html lang="en"><title>Apollon Converter</title><body>Apollon Converter is running</body></html>');
 });
 
 app.listen(port, () => {
