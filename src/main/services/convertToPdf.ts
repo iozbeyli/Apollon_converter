@@ -20,9 +20,6 @@ export class ConversionService {
       height: 10,
     });
 
-    const container = document.querySelector('div')!;
-    const editor = new ApollonEditor(container, {});
-    editor.model = model;
-    return editor.exportAsSVG();
+    return ApollonEditor.exportModelAsSvg(model,{});
   };
 }
