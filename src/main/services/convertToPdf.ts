@@ -6,9 +6,10 @@ export class ConversionService {
    * Gets an uml model of apollon and returns svg of it
    *
    * @param model
+   * @param artemisDiagram whether the model is a diagram created on artemis or not
    * @returns an svg object with svg string and bounds
    */
-  convertToSvg = async (model: UMLModel): Promise<SVG> => {
+  convertToSvg = async (model: UMLModel, artemisDiagram?: boolean): Promise<SVG> => {
     document.body.innerHTML = '<!doctype html><html lang="en"><body><div></div></body></html>';
 
     // JSDOM does not support getBBox so we have to mock it here
@@ -20,9 +21,6 @@ export class ConversionService {
       height: 10,
     });
 
-    const container = document.querySelector('div')!;
-    const editor = new ApollonEditor(container, {});
-    editor.model = model;
-    return editor.exportAsSVG();
+    return ApollonEditor.exportModelAsSvg(model,{artemisDiagram});
   };
 }
