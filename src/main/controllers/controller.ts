@@ -11,8 +11,9 @@ const controllers = {
       if (typeof model === 'string') {
         model = JSON.parse(model);
       }
+      const artemisDiagram: boolean = req.body.artemisDiagram;
       const service: ConversionService = new ConversionService();
-      const { svg, clip } = await service.convertToSvg((model as unknown) as UMLModel);
+      const { svg, clip } = await service.convertToSvg((model as unknown) as UMLModel, artemisDiagram);
       const { width, height } = clip;
       pdfMake.vfs = pdfFonts.pdfMake.vfs;
       const doc = pdfMake.createPdf({
